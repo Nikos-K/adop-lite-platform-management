@@ -1,6 +1,6 @@
 // Constants
 //def platformToolsGitURL = null;
-def platformToolsGitURL = "https://github.com/Nikos-K/adop-platform-management.git"
+def platformToolsGitURL = "https://github.com/Nikos-K/adop-lite-platform-management.git"
 //try{
 //  platformToolsGitURL = "${ADOP_PLATFORM_MANAGEMENT_GIT_URL}"
 //}catch(MissingPropertyException exception){
