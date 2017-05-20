@@ -29,7 +29,7 @@ build job: 'Workspace_Management/Generate_Workspace', parameters: [[$class: 'Str
 // Setup Faculty
 build job: "${workspaceName}/Project_Management/Generate_Project", parameters: [[$class: 'StringParameterValue', name: 'PROJECT_NAME', value: "${projectName}"]]
 retry(5) {
-  build job: "${workspaceName}/${projectName}/Cartridge_Management/Load_Cartridge", parameters: [[$class: 'StringParameterValue', name: 'CARTRIDGE_CLONE_URL', value: "${cartridgeURL}"]]
+  build job: "${workspaceName}/${projectName}/Cartridge_Management/Load_Cartridge", parameters: [[$class: 'StringParameterValue', name: 'CARTRIDGE_CLONE_URL', value: "${cartridgeURL}"], [$class: 'StringParameterValue', name: 'SCM_PROVIDER', value: "${scmProvider}"]]
 }''')
 sandbox()
         }
