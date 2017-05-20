@@ -1,12 +1,12 @@
 // Constants
-def platformToolsGitURL = null;
-
-try{
-  platformToolsGitURL = "${ADOP_PLATFORM_MANAGEMENT_GIT_URL}"
-}catch(MissingPropertyException exception){
-  // backwards compatible - default to gerrit.
-  platformToolsGitURL = "ssh://jenkins@gerrit:29418/platform-management";
-}
+//def platformToolsGitURL = "https://github.com/Accenture/adop-pluggable-scm"
+def platformToolsGitURL = "https://github.com/Nikos-K/adop-platform-management.git"
+//try{
+//  platformToolsGitURL = "${ADOP_PLATFORM_MANAGEMENT_GIT_URL}"
+//}catch(MissingPropertyException exception){
+//  // backwards compatible - default to gerrit.
+//  platformToolsGitURL = "ssh://jenkins@gerrit:29418/platform-management";
+//}
 
 def workspaceManagementFolderName= "/Workspace_Management"
 def workspaceManagementFolder = folder(workspaceManagementFolderName) { displayName('Workspace Management') }
