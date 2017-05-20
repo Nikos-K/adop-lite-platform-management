@@ -417,14 +417,14 @@ def cartridgeFolder = folder(cartridgeFolderName) {
         }
     }
     scm {
-        git {
-            remote {
-                name("origin")
-                url("${platformToolsGitUrl}")
-                credentials("adop-jenkins-master")
-            }
-            branch("*/master")
+      git {
+        remote {
+          name("origin")
+          url("${platformToolsGitURL}")
+          credentials("adop-jenkins-master")
         }
+        branch("*/master")
+      }
     }
 }
 
