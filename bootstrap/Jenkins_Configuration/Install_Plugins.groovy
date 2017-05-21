@@ -5,7 +5,7 @@ def jenkinsConfigurationFolderName= "/Jenkins_Configuration"
 def jenkinsConfigurationFolder = folder(jenkinsConfigurationFolderName) { displayName('Jenkins Configuration') }
 
 // Jobs
-def installPlugins = workflowJob(jenkinsConfigurationFolderName + "/Install_Plugins")
+def installPlugins = freeStyleJob(jenkinsConfigurationFolderName + "/Install_Plugins")
 
 // Install Jenkins Plugins
 installPlugins.with{
