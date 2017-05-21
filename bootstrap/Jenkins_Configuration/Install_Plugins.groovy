@@ -20,7 +20,9 @@ installPlugins.with{
   steps {
     shell('''#!/bin/bash -e
 
-./Jenkkins_Configuration/install_plugins.sh plugins.txt
+    chmod +x bootstrap/Jenkins_Configuration/install_plugins.sh
+
+    bootstrap/Jenkins_Configuration/install_plugins.sh bootstrap/Jenkins_Configuration/plugins.txt
 
 ''')
   }
