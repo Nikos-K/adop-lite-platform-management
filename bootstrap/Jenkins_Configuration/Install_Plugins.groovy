@@ -25,6 +25,16 @@ installPlugins.with{
     bootstrap/Jenkins_Configuration/install_plugins.sh bootstrap/Jenkins_Configuration/plugins.txt
 
 ''')
+    dsl('''
+import jenkins.model.*
+
+def instance = Jenkins.getInstance()
+
+instance.save()
+
+instance.doSafeRestart()
+
+''')
   }
   scm {
     git {
