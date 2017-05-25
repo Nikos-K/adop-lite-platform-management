@@ -20,7 +20,7 @@ if ( envVarsNodePropertyList == null
     envVars = envVarsNodePropertyList.get(0).getEnvVars()
 }
 
-envVars.put("ADOP_PLATFORM_MANAGEMENT_GIT_URL","ssh://git@innersource.accenture.com/adop-e/adop-platform-management.git")
+envVars.put("ADOP_PLATFORM_MANAGEMENT_GIT_URL","https://github.com/Nikos-K/adop-lite-platform-management.git")
 envVars.put("ADOP_PLATFORM_MANAGEMENT_VERSION", "*/master")
 envVars.put("ADOP_ACL_ENABLED", "false")
 envVars.put("ADOP_LDAP_ENABLED", "false")
