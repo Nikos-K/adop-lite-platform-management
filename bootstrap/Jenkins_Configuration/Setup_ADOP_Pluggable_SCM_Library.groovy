@@ -5,7 +5,7 @@ def jenkinsConfigurationFolderName= "/Jenkins_Configuration"
 def jenkinsConfigurationFolder = folder(jenkinsConfigurationFolderName) { displayName('Jenkins Configuration') }
 
 // Jobs
-def setupAdopPluggableScmLibrary = workflowJob(jenkinsConfigurationFolderName + "/Setup_Adop_Pluggable_Scm_Library")
+def setupAdopPluggableScmLibrary = freeStyleJob(jenkinsConfigurationFolderName + "/Setup_Adop_Pluggable_Scm_Library")
 
 // Install Jenkins Plugins
 setupAdopPluggableScmLibrary.with{
