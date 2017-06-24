@@ -1,5 +1,4 @@
 // Constants
-def platformToolsGitURL = "https://github.com/Nikos-K/adop-lite-platform-management.git"
 
 def jenkinsConfigurationFolderName= "/Jenkins_Configuration"
 def jenkinsConfigurationFolder = folder(jenkinsConfigurationFolderName) { displayName('Jenkins Configuration') }
@@ -40,7 +39,7 @@ instance.doSafeRestart()
     git {
       remote {
         name("origin")
-        url("${platformToolsGitURL}")
+        url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
       }
       branch("*/master")
     }

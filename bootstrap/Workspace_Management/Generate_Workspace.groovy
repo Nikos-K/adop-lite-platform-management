@@ -1,6 +1,5 @@
 // Constants
-//def platformToolsGitURL = "https://github.com/Accenture/adop-pluggable-scm"
-def platformToolsGitURL = "https://github.com/Nikos-K/adop-lite-platform-management.git"
+
 //try{
 //  platformToolsGitURL = "${ADOP_PLATFORM_MANAGEMENT_GIT_URL}"
 //}catch(MissingPropertyException exception){
@@ -42,7 +41,7 @@ fi''')
         git {
             remote {
                 name("origin")
-                url("${platformToolsGitURL}")
+                url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
                 credentials("adop-jenkins-master")
             }
             branch("*/master")

@@ -1,6 +1,5 @@
 // Constants
 //def platformToolsGitURL = null;
-def platformToolsGitURL = "https://github.com/Nikos-K/adop-lite-platform-management.git"
 //try{
 //  platformToolsGitURL = "${ADOP_PLATFORM_MANAGEMENT_GIT_URL}"
 //}catch(MissingPropertyException exception){
@@ -17,6 +16,15 @@ def projectManagementFolder = folder(projectManagementFolderName) { displayName(
 
 // Jobs
 def generateProjectJob = freeStyleJob(projectManagementFolderName + "/Generate_Project")
+
+//def adopLdapEnabled = '';
+//
+//try{
+//  adopLdapEnabled = "${ADOP_LDAP_ENABLED}".toBoolean();
+//}catch(MissingPropertyException ex){
+//  adopLdapEnabled = true;
+//}
+
 
 // Setup Generate_Project
 generateProjectJob.with{
@@ -51,7 +59,7 @@ fi''')
     git {
       remote {
         name("origin")
-        url("${platformToolsGitURL}")
+        url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
         credentials("adop-jenkins-master")
       }
       branch("*/master")
