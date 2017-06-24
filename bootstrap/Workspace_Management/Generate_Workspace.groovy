@@ -18,7 +18,6 @@ generateWorkspaceJob.with{
     parameters{
         stringParam("WORKSPACE_NAME","","The name of the project to be generated.")
     }
-    label("docker")
     wrappers {
         preBuildCleanup()
         injectPasswords()
@@ -42,7 +41,6 @@ fi''')
             remote {
                 name("origin")
                 url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
-                credentials("adop-jenkins-master")
             }
             branch("*/master")
         }

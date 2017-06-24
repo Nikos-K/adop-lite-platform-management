@@ -420,7 +420,6 @@ def cartridgeFolder = folder(cartridgeFolderName) {
         remote {
           name("origin")
           url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
-          credentials("adop-jenkins-master")
         }
         branch("*/master")
       }

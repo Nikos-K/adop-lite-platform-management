@@ -32,7 +32,6 @@ generateProjectJob.with{
     stringParam("PROJECT_NAME","","The name of the project to be generated.")
     booleanParam('CUSTOM_SCM_NAMESPACE', false, 'Enables the option to provide a custom project namespace for your SCM provider')
   }
-  label("docker")
   environmentVariables {
     env('WORKSPACE_NAME',workspaceFolderName)
   }
@@ -40,7 +39,6 @@ generateProjectJob.with{
     preBuildCleanup()
     injectPasswords()
     maskPasswords()
-    sshAgent("adop-jenkins-master")
   }
   steps {
     shell('''#!/bin/bash -e
@@ -60,7 +58,6 @@ fi''')
       remote {
         name("origin")
         url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
-        credentials("adop-jenkins-master")
       }
       branch("*/master")
     }
