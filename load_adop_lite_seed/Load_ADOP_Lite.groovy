@@ -26,7 +26,7 @@ job('Load_ADOP_Lite'){
       external("bootstrap/Jenkins_Configuration/add_env_vars.groovy")
 			lookupStrategy('JENKINS_ROOT')
     }
-		systemGroovyCommand(readFileFromWorkspace("bootstrap/Jenkins_Configuration/add_groovy_profile.script"))
+		systemGroovyScriptFile("bootstrap/Jenkins_Configuration/add_groovy_profile.script")
 		dsl {
       external("bootstrap/**/*.groovy")
 			lookupStrategy('JENKINS_ROOT')
