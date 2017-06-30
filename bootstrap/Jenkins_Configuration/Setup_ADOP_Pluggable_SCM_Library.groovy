@@ -69,8 +69,9 @@ EOF
     ''')
     shell('''#!/bin/bash
 echo ${PLUGGABLE_SCM_PROVIDER_PATH}
-wget https://raw.githubusercontent.com/Accenture/adop-jenkins/master/resources/scriptler/retrieve_scm_props.groovy
-sed -i "s,###SCM_PROVIDER_PROPERTIES_PATH###,$PLUGGABLE_SCM_PROVIDER_PROPERTIES_PATH,g" retrieve_scm_props.groovy
+curl -o /var/jenkins_home/scriptler/scripts/retrieve_scm_props.groovy https://raw.githubusercontent.com/Accenture/adop-jenkins/master/resources/scriptler/retrieve_scm_props.groovy
+chmod +x /var/jenkins_home/scriptler/scripts/retrieve_scm_props.groovy
+sed -i "s,###SCM_PROVIDER_PROPERTIES_PATH###,$PLUGGABLE_SCM_PROVIDER_PROPERTIES_PATH,g" /var/jenkins_home/scriptler/scripts/retrieve_scm_props.groovy
 ''')
   }
 }
