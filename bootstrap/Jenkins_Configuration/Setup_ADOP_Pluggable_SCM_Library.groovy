@@ -67,6 +67,31 @@ scm.port=443
 scm.url=https://innersource.accenture.com
 EOF
     ''')
+    shell('''#!/bin/bash -e
+
+# Constants
+JENKINS_HOME="/var/jenkins_home"
+JENKINS_SSH_DIR="${JENKINS_HOME}/.ssh"
+JENKINS_USER_CONTENT_DIR="${JENKINS_HOME}/userContent/"
+
+echo "Generating Jenkins Key Pair"
+if [ ! -d "${JENKINS_SSH_DIR}" ]; then mkdir -p "${JENKINS_SSH_DIR}"; fi
+cd "${JENKINS_SSH_DIR}"
+
+if [[ ! $(ls -A "${JENKINS_SSH_DIR}") ]]; then 
+  ssh-keygen -t rsa -f 'id_rsa' -b 4096 -C "jenkins@adop-core" -N ''; 
+  echo "Copy key to userContent folder"
+  mkdir -p ${JENKINS_USER_CONTENT_DIR}
+  rm -f ${JENKINS_USER_CONTENT_DIR}/id_rsa.pub
+  cp ${JENKINS_SSH_DIR}/id_rsa.pub ${JENKINS_USER_CONTENT_DIR}/id_rsa.pub
+
+  # Set correct permissions for Content Directory
+  chown 1000:1000 "${JENKINS_USER_CONTENT_DIR}"
+fi
+
+# Set correct permissions on SSH Key
+chown -R 1000:1000 "${JENKINS_SSH_DIR}"
+''')
     shell('''#!/bin/bash
 echo ${PLUGGABLE_SCM_PROVIDER_PATH}
 curl -o /var/jenkins_home/scriptler/scripts/retrieve_scm_props.groovy https://raw.githubusercontent.com/Accenture/adop-jenkins/master/resources/scriptler/retrieve_scm_props.groovy
