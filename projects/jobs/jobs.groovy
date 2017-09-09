@@ -30,12 +30,12 @@ def loadCartridgeJob = freeStyleJob(cartridgeManagementFolderName + "/Load_Cartr
 def loadCartridgeCollectionJob = workflowJob(cartridgeManagementFolderName + "/Load_Cartridge_Collection")
 // Setup Load_Cartridge
 loadCartridgeJob.with{
-    parameters{
-        extensibleChoiceParameterDefinition {
-          name('CARTRIDGE_CLONE_URL')
-          choiceListProvider {
-            systemGroovyChoiceListProvider {
-              scriptText('''
+  parameters{
+    extensibleChoiceParameterDefinition {
+      name('CARTRIDGE_CLONE_URL')
+      choiceListProvider {
+        systemGroovyChoiceListProvider {
+          scriptText('''
 import jenkins.model.*
 
 nodes = Jenkins.instance.globalNodeProperties
@@ -79,55 +79,55 @@ URLS.split(';').each{ source_url ->
 
 return cartridge_urls;
 ''')
-              defaultChoice('Top')
-              usePredefinedVariables(false)
-            }
+          defaultChoice('Top')
+          usePredefinedVariables(false)
           }
-          editable(true)
-          description('Cartridge URL to load')
-        }
-        activeChoiceParam('SCM_PROVIDER') {
-          description('Your chosen SCM Provider and the appropriate cloning protocol')
-          filterable()
-          choiceType('SINGLE_SELECT')
-          scriptlerScript('retrieve_scm_props.groovy')
-        }
-        if (customScmNamespace == "true"){
-          stringParam('SCM_NAMESPACE', '', 'The namespace for your SCM provider which will prefix your created repositories')
-        }
-        stringParam('CARTRIDGE_FOLDER', '', 'The folder within the project namespace where your cartridge will be loaded into.')
-        stringParam('FOLDER_DISPLAY_NAME', '', 'Display name of the folder where the cartridge is loaded.')
-        stringParam('FOLDER_DESCRIPTION', '', 'Description of the folder where the cartridge is loaded.')
-        booleanParam('ENABLE_CODE_REVIEW', false, 'Enables Code Reviewing for the selected cartridge')
-        booleanParam('OVERWRITE_REPOS', false, 'If ticked, existing code repositories (previously loaded by the cartridge) will be overwritten. For first time cartridge runs, this property is redundant and will perform the same behavior regardless.')
+      }
+      editable(true)
+      description('Cartridge URL to load')
     }
-    environmentVariables {
-        groovy("return [SCM_KEY: org.apache.commons.lang.RandomStringUtils.randomAlphanumeric(20)]")
-        env('WORKSPACE_NAME',workspaceFolderName)
-        env('PROJECT_NAME',projectFolderName)
-        keepBuildVariables(true)
-        keepSystemVariables(true)
-        overrideBuildParameters(true)
+    activeChoiceParam('SCM_PROVIDER') {
+      description('Your chosen SCM Provider and the appropriate cloning protocol')
+      filterable()
+      choiceType('SINGLE_SELECT')
+      scriptlerScript('retrieve_scm_props.groovy')
     }
-    wrappers {
-        preBuildCleanup()
-        injectPasswords()
-        maskPasswords()
-        credentialsBinding {
-            file('SCM_SSH_KEY', 'adop-jenkins-private')
-        }
-        copyToSlaveBuildWrapper {
-          includes("**/**")
-          excludes("")
-          flatten(false)
-          includeAntExcludes(false)
-          relativeTo('''${JENKINS_HOME}/userContent''')
-          hudsonHomeRelative(false)
-        }
+    if (customScmNamespace == "true"){
+      stringParam('SCM_NAMESPACE', '', 'The namespace for your SCM provider which will prefix your created repositories')
     }
-    label("!master && !windows && !ios")
-    steps {
-        shell('''#!/bin/bash -ex
+    stringParam('CARTRIDGE_FOLDER', '', 'The folder within the project namespace where your cartridge will be loaded into.')
+    stringParam('FOLDER_DISPLAY_NAME', '', 'Display name of the folder where the cartridge is loaded.')
+    stringParam('FOLDER_DESCRIPTION', '', 'Description of the folder where the cartridge is loaded.')
+    booleanParam('ENABLE_CODE_REVIEW', false, 'Enables Code Reviewing for the selected cartridge')
+    booleanParam('OVERWRITE_REPOS', false, 'If ticked, existing code repositories (previously loaded by the cartridge) will be overwritten. For first time cartridge runs, this property is redundant and will perform the same behavior regardless.')
+  }
+  environmentVariables {
+    groovy("return [SCM_KEY: org.apache.commons.lang.RandomStringUtils.randomAlphanumeric(20)]")
+    env('WORKSPACE_NAME',workspaceFolderName)
+    env('PROJECT_NAME',projectFolderName)
+    keepBuildVariables(true)
+    keepSystemVariables(true)
+    overrideBuildParameters(true)
+  }
+  wrappers {
+    preBuildCleanup()
+    injectPasswords()
+    maskPasswords()
+    credentialsBinding {
+      file('SCM_SSH_KEY', 'adop-jenkins-private')
+    }
+    copyToSlaveBuildWrapper {
+    includes("**/**")
+    excludes("")
+    flatten(false)
+    includeAntExcludes(false)
+    relativeTo('''${JENKINS_HOME}/userContent''')
+    hudsonHomeRelative(false)
+    }
+  }
+  label("!master && !windows && !ios")
+  steps {
+    shell('''#!/bin/bash -ex
 
 mkdir ${WORKSPACE}/tmp
 
@@ -148,10 +148,10 @@ fi
 
 echo SCM_NAMESPACE=$(echo ${SCM_NAMESPACE} | cut -d "(" -f2 | cut -d ")" -f1) >> ${WORKSPACE}/scm.properties
 ''')
-        environmentVariables {
-            propertiesFile('${WORKSPACE}/scm.properties')
-        }
-        systemGroovyCommand('''
+    environmentVariables {
+       propertiesFile('${WORKSPACE}/scm.properties')
+    }
+    systemGroovyCommand('''
 import com.cloudbees.plugins.credentials.*;
 import com.cloudbees.plugins.credentials.common.*;
 import pluggable.scm.PropertiesSCMProviderDataStore;
@@ -202,10 +202,11 @@ if(credentialId != null){
 }else{
   println "[INFO] - No credential to inject. SCM provider load.credentialId property not found."
 }
-'''){
-  classpath('${PLUGGABLE_SCM_PROVIDER_PATH}')
-}
-        shell('''#!/bin/bash -ex
+''')
+    {
+      classpath('${PLUGGABLE_SCM_PROVIDER_PATH}')
+    }
+    shell('''#!/bin/bash -ex
 
 # We trust everywhere
 echo -e "#!/bin/sh
@@ -253,13 +254,13 @@ if [ -d ${WORKSPACE}/${CART_HOME}/jenkins/jobs ]; then
     fi
 fi
 ''')
-        environmentVariables {
-          propertiesFile('${WORKSPACE}/carthome.properties')
-        }
-        environmentVariables {
-          propertiesFile('${WORKSPACE}/scm_provider.properties')
-        }
-        systemGroovyCommand('''
+    environmentVariables {
+      propertiesFile('${WORKSPACE}/carthome.properties')
+    }
+    environmentVariables {
+      propertiesFile('${WORKSPACE}/scm_provider.properties')
+    }
+    systemGroovyCommand('''
 import jenkins.model.*;
 import groovy.io.FileType;
 import hudson.FilePath;
@@ -293,14 +294,14 @@ xmlFiles.each {
   println '[INFO] - Imported XML job config: ' + it.toURI();
 }
 ''')
-  environmentVariables {
+    environmentVariables {
       env('PLUGGABLE_SCM_PROVIDER_PATH','${WORKSPACE}/job_dsl_additional_classpath/')
       env('PLUGGABLE_SCM_PROVIDER_PROPERTIES_PATH','${WORKSPACE}/datastore/pluggable/scm')
-  }
-  groovy {
-    scriptSource {
+    }
+    groovy {
+      scriptSource {
         stringScriptSource {
-            command('''
+          command('''
 import pluggable.scm.SCMProvider;
 import pluggable.scm.SCMProviderHandler;
 import pluggable.configuration.EnvVarProperty;
@@ -350,18 +351,18 @@ if (scmNamespace != null && !scmNamespace.isEmpty()){
 
 scmProvider.createScmRepos(workspace, repoNamespace, codeReviewEnabled, overwriteRepos)
 ''')
-                }
-            }
-            parameters("")
-            scriptParameters("")
-            properties("")
-            javaOpts("")
-            groovyName("ADOP Groovy")
-            classPath('''${WORKSPACE}/job_dsl_additional_classpath''')
         }
-        conditionalSteps {
-            condition {
-                shell ('''#!/bin/bash
+      }
+      parameters("")
+      scriptParameters("")
+      properties("")
+      javaOpts("")
+      groovyName("ADOP Groovy")
+      classPath('''${WORKSPACE}/job_dsl_additional_classpath''')
+    }
+    conditionalSteps {
+      condition {
+        shell('''#!/bin/bash
 
 # Checking to see if folder is specified and project name needs to be updated
 
@@ -372,19 +373,19 @@ else
     echo "Folder name specified, changing project name value.."
     exit 0
 fi
-                ''')
-            }
-            runner('RunUnstable')
-            steps {
-                environmentVariables {
-                    env('CARTRIDGE_FOLDER','${CARTRIDGE_FOLDER}')
-                    env('WORKSPACE_NAME',workspaceFolderName)
-                    env('PROJECT_NAME',projectFolderName + '/${CARTRIDGE_FOLDER}')
-                    env('FOLDER_DISPLAY_NAME','${FOLDER_DISPLAY_NAME}')
-                    env('FOLDER_DESCRIPTION','${FOLDER_DESCRIPTION}')
-                }
-                dsl {
-                    text('''// Creating folder to house the cartridge...
+''')
+      }
+      runner('RunUnstable')
+      steps {
+        environmentVariables {
+          env('CARTRIDGE_FOLDER','${CARTRIDGE_FOLDER}')
+          env('WORKSPACE_NAME',workspaceFolderName)
+          env('PROJECT_NAME',projectFolderName + '/${CARTRIDGE_FOLDER}')
+          env('FOLDER_DISPLAY_NAME','${FOLDER_DISPLAY_NAME}')
+          env('FOLDER_DESCRIPTION','${FOLDER_DESCRIPTION}')
+        }
+        dsl {
+          text('''// Creating folder to house the cartridge...
 
 def cartridgeFolderName = "${PROJECT_NAME}"
 def FolderDisplayName = "${FOLDER_DISPLAY_NAME}"
@@ -401,29 +402,29 @@ def cartridgeFolder = folder(cartridgeFolderName) {
   displayName(FolderDisplayName)
   description(FolderDescription)
 }
-                    ''')
-                }
-            }
+''')
         }
-       environmentVariables {
-         env('PLUGGABLE_SCM_PROVIDER_PATH','${JENKINS_HOME}/userContent/job_dsl_additional_classpath/')
-         env('PLUGGABLE_SCM_PROVIDER_PROPERTIES_PATH','${JENKINS_HOME}/userContent/datastore/pluggable/scm')
-         propertiesFile('${WORKSPACE}/scm.properties')
-       }
-        dsl {
-            external("cartridge/**/jenkins/jobs/dsl/*.groovy")
-            additionalClasspath("job_dsl_additional_classpath")
-        }
-    }
-    scm {
-      git {
-        remote {
-          name("origin")
-          url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
-        }
-        branch("*/master")
       }
     }
+    environmentVariables {
+      env('PLUGGABLE_SCM_PROVIDER_PATH','${JENKINS_HOME}/userContent/job_dsl_additional_classpath/')
+      env('PLUGGABLE_SCM_PROVIDER_PROPERTIES_PATH','${JENKINS_HOME}/userContent/datastore/pluggable/scm')
+      propertiesFile('${WORKSPACE}/scm.properties')
+    }
+    dsl {
+      external("cartridge/**/jenkins/jobs/dsl/*.groovy")
+      additionalClasspath("job_dsl_additional_classpath")
+    }
+  }
+  scm {
+    git {
+       remote {
+        name("origin")
+        url("${ADOP_PLATFORM_MANAGEMENT_GIT_URL}")
+      }
+      branch("*/master")
+    }
+  }
 }
 
 
