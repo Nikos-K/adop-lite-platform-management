@@ -1,9 +1,9 @@
 # What is ADOP-Lite?
-ADOP-Lite is the name given to adopting just the Cartridge loader into a pre-existing instance of Jenkins. ADOP-Lite enables Jenkins instances (that do not come pre-configured with the Load_Platform & adop-platform-management jobs) to load cartridges and benefit from multi-tenancy via workspaces & projects.
+ADOP-Lite is the name given to adopting just the Cartridge loader into a pre-existing instance of Jenkins. ADOP-Lite enables Jenkins instances (that do not come pre-configured with the Load_Platform & adop-platform-management jobs) to load cartridges and to benefit from multi-tenancy via workspaces & projects.
 
 For many people using their own dedicated full instance of ADOP or using ADOP via the ADOP Enterprise edition meets their needs. However, not everyone is lucky enough to have control over creating/recreating the tooling instances. If you are tied to using a pre-existing Jenkins and do not have full control over your infrastructure, ADOP-LITE is your ticket to the wonderful world of Cartridges.
 
-# Pre-requisites for getting into ADOP LITE
+# Pre-requisites for getting into ADOP LITE (Work-In-Progress)
 Mandatory
 1. You must be interested in automating Jenkins jobs and reusing automation.
 2. You must have Jenkins in your tools platform.
@@ -13,7 +13,7 @@ Optional
 2. Access to a cloud account so that you can re-use cartridges that create cloud resources.
 3. Access to Docker so that you can re-use cartridges that use Docker.
 
-Recommended Jenkins Specifications
+Recommended Jenkins Specifications (Work-In-Progress)
 
-# Adopting ADOP LITE
+# Adopting ADOP LITE (Work-In-Progress)
 ![HomePage](https://github.com/Nikos-K/adop-lite-platform-management/blob/master/img/ADOP_Lite_Diag_1.png)
