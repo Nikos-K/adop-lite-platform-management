@@ -1,27 +1,18 @@
-# What is Platform Management?
-The platform management repository includes the Jenkins jobs and supporting scripts that facilitate:
+# What is ADOP-Lite?
+ADOP-Lite is the name given to adopting just the Cartridge loader into a pre-existing instance of Jenkins. ADOP-Lite enables Jenkins instances (that do not come pre-configured with the Load_Platform & adop-platform-management jobs) to load cartridges and benefit from multi-tenancy via workspaces & projects.
 
-- Cartridges
-- Multi-tenancy via workspaces & projects
+For many people using their own dedicated full instance of ADOP or using ADOP via the ADOP Enterprise SaaS service meets their needs.  However, not everyone is lucky enough to have control over creating/recreating the tooling instances. If you are tired to using a pre-existing Jenkins and do not have full control over your infrastructure, ADOP-LITEis your ticket to the wonderful world of Cartridges.
 
-This repository is loaded into the platform using the baked in "Load\_Platform" job and contains:
+# Pre-requisites for getting into ADOP LITE
+Mandatory
+1. You must be interested in automating Jenkins jobs and reusing automation
+2. You must have Jenkins in your tools platform
+ 
+Optional
+1. A Jenkins instance that meets the minimum specifications and either runs on Linux or has access to a slave running Linux.
+2. Access to a cloud account so that you can re-use cartridges that create cloud resources.
+3. Access to Docker so that you can re-use cartridges that use Docker
 
-- Jenkins Job DSL - defines the Jenkins jobs for workspaces, projects, and cartridges
-- Jenkins Groovy scripts - for automating the configuration of Jenkins
-- Shell Scripts - for automating command line actions, such as with Gerrit or LDAP
+Recommended Jenkins Specifications
 
-# License
-Please view [license information](LICENSE.md) for the software contained on this image.
-
-# User feedback
-
-## Documentation
-Documentation will be captured within this README.md and this repository's Wiki.
-
-## Issues
-If you have any problems with or questions about this image, please contact us through a [GitHub issue](https://github.com/Accenture/adop-platform-management/issues).
-
-## Contribute
-You are invited to contribute new features, fixes, or updates, large or small; we are always thrilled to receive pull requests, and do our best to process them as fast as we can.
-
-Before you start to code, we recommend discussing your plans through a [GitHub issue](https://github.com/Accenture/adop-platform-management/issues), especially for more ambitious contributions. This gives other contributors a chance to point you in the right direction, give you feedback on your design, and help you find out if someone else is working on the same thing.
+# Adopting ADOP LITE
